@@ -1,0 +1,3 @@
+﻿  main.c
+C:\Users\Pranav\source\repos\Number_system_conversion\Number_system_conversion\main.c(10,57): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  Number_system_conversion.vcxproj -> C:\Users\Pranav\source\repos\Number_system_conversion\Debug\Number_system_conversion.exe
