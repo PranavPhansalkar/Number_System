@@ -1,0 +1,63 @@
+name: Pull Request Workflow
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Display Pull Request Info
+      run: |
+        echo "Pull Request Info:"
+        echo "Username: ${{ github.actor }}"
+        echo "Branch: ${{ github.head_ref }}"
+        echo "Base Branch: ${{ github.base_ref }}"
+        echo "Pull Request Title: ${{ github.event.pull_request.title }}"
+        echo "Pull Request Number: ${{ github.event.pull_request.number }}"
+        echo "Pull Request URL: ${{ github.event.pull_request.html_url }}"
+
+    - name: Set up Node.js (example, adjust per project)
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Tests
+      run: npm test
+
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Lint
+      run: npm run lint
+
+  notify:
+    name: Notify on Success or Failure
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+    - name: Send Notification (example step)
+      run: echo "Workflow completed with status: ${{ job.status }}"
